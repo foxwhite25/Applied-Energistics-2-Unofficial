@@ -2,9 +2,11 @@ package appeng.helpers;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import appeng.api.networking.IGridHost;
 import appeng.api.util.DimensionalCoord;
+import appeng.parts.AEBasePart;
 
 public interface IInterfaceTerminalSupport extends IGridHost {
 
@@ -16,6 +18,14 @@ public interface IInterfaceTerminalSupport extends IGridHost {
         public PatternsConfiguration(int offset, int size) {
             this.offset = offset;
             this.size = size;
+        }
+    }
+
+    default ForgeDirection getDirection() {
+        if (this instanceof AEBasePart) {
+            return ((AEBasePart) this).getSide();
+        } else {
+            return ForgeDirection.UNKNOWN;
         }
     }
 
